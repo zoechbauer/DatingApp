@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../_Services/User.service';
 import { AlertifyService } from '../_Services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
@@ -15,6 +15,8 @@ export class ListsComponent implements OnInit {
   users: User[];
   pagination: Pagination;
   likesParam: string;
+  likesOfGenderShown: string;
+  likesOfGenderNotShown: string;
 
   constructor(private authService: AuthService, private route: ActivatedRoute, private userService: UserService,
               private alertyService: AlertifyService) { }
@@ -22,6 +24,11 @@ export class ListsComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       console.log('Lists data', data);
+      console.log('User', this.authService.currentUser);
+      if (this.authService.currentUser.gender !== null) {
+        this.likesOfGenderShown = this.authService.currentUser.gender === 'male' ? 'Female' : 'Male';
+        this.likesOfGenderNotShown = this.authService.currentUser.gender;
+      }
       this.users = data['users'].result;
       this.pagination = data['users'].pagination;
       this.likesParam = 'Likers';

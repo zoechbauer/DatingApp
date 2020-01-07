@@ -1,5 +1,7 @@
 <div class="text-center mt-3">
-  <h2>{{likesParam === 'Likers' ? 'Members who like me' : 'Members who I\'ve Liked'}} : {{pagination.totalItems}}</h2>
+  <h2>{{likesParam === 'Likers' ? likesOfGenderShown + ' Members who like me' : likesOfGenderShown +' Members who I\'ve Liked'}}
+     : {{pagination.totalItems}}</h2>
+  <h5>Likes from and to {{likesOfGenderNotShown}} members are not shown here.</h5>
 </div>
 
 <div class="container mt-3">
