@@ -36,15 +36,25 @@ namespace DatingApp.API
         // according to naming conventions is called either ConfigureDevelopmentServices or ConfigureProductionServices
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlite
-            (Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(x => {
+                x.UseLazyLoadingProxies();
+                x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            // TODO switch comment/uncomment if Sqlite instead of Sql Server should be used in development mode
+            // services.AddDbContext<DataContext>(x => {
+            //     x.UseLazyLoadingProxies();
+            //     x.UseSqlite(Configuration.GetConnectionString("SqliteConnection"));
+            // });
 
             ConfigureServices(services);
         }
         public void ConfigureProductionServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlServer
-            (Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(x => {
+                x.UseLazyLoadingProxies();
+                x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             ConfigureServices(services);
         }

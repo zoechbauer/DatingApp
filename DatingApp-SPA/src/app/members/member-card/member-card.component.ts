@@ -14,7 +14,7 @@ export class MemberCardComponent implements OnInit {
   @Input() user: User;
 
   constructor(private authService: AuthService, private userService: UserService,
-              private alertifyService: AlertifyService) { }
+              private alertify: AlertifyService) { }
 
   ngOnInit() {
   }
@@ -23,9 +23,9 @@ export class MemberCardComponent implements OnInit {
     console.log('decodedToken: ', this.authService.decodedToken);
     this.userService.sendLike(this.authService.decodedToken.nameid, id).subscribe(
       res => {
-        this.alertifyService.success('you liked ' + this.user.knownAs);
+        this.alertify.success('you liked ' + this.user.knownAs);
       }, error => {
-        this.alertifyService.error(error);
+        this.alertify.error(error);
       }
     );
   }

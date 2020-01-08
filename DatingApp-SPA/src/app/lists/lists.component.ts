@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_Services/User.service';
 import { AlertifyService } from '../_Services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
@@ -23,8 +23,8 @@ export class ListsComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      console.log('Lists data', data);
-      console.log('User', this.authService.currentUser);
+      // console.log('Lists data', data);
+      // console.log('User', this.authService.currentUser);
       if (this.authService.currentUser.gender !== null) {
         this.likesOfGenderShown = this.authService.currentUser.gender === 'male' ? 'Female' : 'Male';
         this.likesOfGenderNotShown = this.authService.currentUser.gender;
@@ -32,7 +32,7 @@ export class ListsComponent implements OnInit {
       this.users = data['users'].result;
       this.pagination = data['users'].pagination;
       this.likesParam = 'Likers';
-      console.log('Lists pagination', this.pagination);
+      // console.log('Lists pagination', this.pagination);
     });
   }
 
@@ -42,7 +42,7 @@ export class ListsComponent implements OnInit {
   }
 
   loadUsers() {
-    console.log(this.pagination);
+    // console.log(this.pagination);
     this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, null, this.likesParam)
       .subscribe((res: PaginatedResult<User[]>) => {
         this.users = res.result;
