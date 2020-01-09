@@ -89,22 +89,24 @@ namespace DatingApp.API
             {
                 app.UseDeveloperExceptionPage();
             } else {
-                // app.UseExceptionHandler(builder => {
-                //     builder.Run(async context => {
-                //         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                // TODO comment these lines until TODO end on app-problems on azure to display developer error messages in browser
+                app.UseExceptionHandler(builder => {
+                    builder.Run(async context => {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-                //         var error = context.Features.Get<IExceptionHandlerFeature>();
-                //         if (error != null) {
-                //             context.Response.AddApplicationError(error.Error.Message);
-                //             await context.Response.WriteAsync(error.Error.Message);
-                //         }
-                //     });
-                // });
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null) {
+                            context.Response.AddApplicationError(error.Error.Message);
+                            await context.Response.WriteAsync(error.Error.Message);
+                        }
+                    });
+                });
+                // TODO end 
 
                 app.UseHsts();
             }
-            // TODO remove this after testinstallation on azure and uncomment above codelines
-            app.UseDeveloperExceptionPage();
+            // TODO uncomment this line on app-problems on azure to display developer error messages in browser
+            // app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
 
