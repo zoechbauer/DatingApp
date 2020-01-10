@@ -8,9 +8,15 @@
             <strong>Location:</strong>
             <p>{{user.city}}, {{user.country}}</p>
           </div>
-          <div>
-            <strong>Age:</strong>
-            <p>{{user.age}}</p>
+          <div class="d-flex">
+            <div class="w-50">
+              <strong>Age:</strong>
+              <p>{{user.age}}</p>
+            </div>
+            <div class="w-100">
+              <strong>Gender:</strong>
+              <p>{{user.gender}}</p>
+            </div>
           </div>
           <div>
             <strong>Last Active:</strong>
@@ -30,11 +36,15 @@
     <div class="col-sm-8">
       <div class="tab-panel">
         <tabset class="member-tabset" #memberTabs>
-          <tab heading="About {{user.knownAs}}">
+          <tab>
+            <ng-template tabHeading>
+              <!-- About <b><b>{{user.knownAs}}</b></i> -->
+              About<br><span class="badge badge-primary member-name">{{user.knownAs}}</span>
+            </ng-template>
             <h4>Description</h4>
-            <p>{{user.introduction}}</p>
-            <h4>Looking For</h4>
-            <p>{{user.lookingFor}}</p>
+              <p>{{user.introduction}}</p>
+              <h4>Looking For</h4>
+              <p>{{user.lookingFor}}</p>
           </tab>
           <tab heading="Interests">
             <h4>Interests</h4>

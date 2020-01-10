@@ -31,14 +31,14 @@ export class MemberMessagesComponent implements OnInit {
           messages.forEach(message => {
             if (message.isRead === false && message.recipientId === currentUserId) {
               this.userService.markAsRead(currentUserId, message.id);
-              console.log('Message read: userid=' + currentUserId + ', msgId=' + message.id);
+              // console.log('Message read: userid=' + currentUserId + ', msgId=' + message.id);
             }
           });
         })
       )
       .subscribe(messages => {
         this.messages = messages;
-        console.log(messages);
+        // console.log(messages);
       }, error => {
         this.alertify.error(error);
       });

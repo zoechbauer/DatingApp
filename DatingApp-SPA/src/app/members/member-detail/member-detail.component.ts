@@ -4,7 +4,6 @@ import { AlertifyService } from 'src/app/_Services/alertify.service';
 import { User } from 'src/app/_models/user';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
-import { NgForOf } from '@angular/common';
 import { TabsetComponent } from 'ngx-bootstrap';
 import { AuthService } from 'src/app/_Services/Auth.service';
 
@@ -59,11 +58,14 @@ export class MemberDetailComponent implements OnInit {
   }
 
   selectTab(tabId: number) {
-    this.memberTabs.tabs[tabId].active = true;
+    // console.log('selectedTab of tabId', tabId);
+    if (tabId !== undefined) {
+      this.memberTabs.tabs[tabId].active = true;
+    }
   }
 
   sendLike(id: number) {
-    console.log('decodedToken: ', this.authService.decodedToken);
+    // console.log('decodedToken: ', this.authService.decodedToken);
     this.userService.sendLike(this.authService.decodedToken.nameid, id).subscribe(
       res => {
         this.alertify.success('you liked ' + this.user.knownAs);

@@ -22,7 +22,7 @@ success(message: string) {
 }
 
 error(message: string) {
-  console.log('alertify-error: ', message);
+  // console.log('alertify-error: ', message);
   alertify.error(message);
 }
 

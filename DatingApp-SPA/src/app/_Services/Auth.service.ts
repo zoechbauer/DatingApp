@@ -24,13 +24,13 @@ export class AuthService {
       map((response: any) => {
         const user = response;
         if (user) {
-          console.log(user);
-          localStorage.setItem('token', user.token);
+          console.log('login user:', user);
+          localStorage.setItem('token', user.token); 
           localStorage.setItem('user', JSON.stringify(user.user));
           this.decodedToken = this.jwtHelper.decodeToken(user.token);
           this.currentUser = user.user;
           this.changeMemberPhoto(this.currentUser.photoUrl);
-          console.log(this.decodedToken);
+          console.log('login decodedToken:', this.decodedToken);
         }
       })
     );

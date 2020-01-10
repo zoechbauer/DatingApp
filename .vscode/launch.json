@@ -9,8 +9,8 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/DatingApp.API/bin/Debug/netcoreapp3.0/DatingApp.api.dll",
+            // TODO If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/DatingApp.API/bin/Debug/netcoreapp3.1/DatingApp.api.dll",
             "args": [],
             "cwd": "${workspaceFolder}/DatingApp.API",
             "stopAtEntry": false,
