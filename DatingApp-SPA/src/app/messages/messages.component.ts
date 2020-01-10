@@ -57,6 +57,7 @@ export class MessagesComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
+    console.log('messages pageChanged:', this.pagination, event);
     this.pagination.currentPage = event.page;
     this.loadMessages();
   }

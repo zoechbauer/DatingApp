@@ -21,7 +21,7 @@ export class UserService {
 
     let params = new HttpParams();
     if (page != null && itemsPerPage != null) {
-      params = params.append('pageNumer', page);
+      params = params.append('pageNumber', page);
       params = params.append('pageSize', itemsPerPage);
     }
     if (userParams !== null && userParams !== undefined) {
@@ -36,14 +36,16 @@ export class UserService {
     if (likesParam === 'Likees') {
       params = params.append('Likees', 'true');
     }
-    // console.log('getUsers', params);
+    // console.log('getUsers - params', params);
     return this.http.get<User[]>(this.baseUrl + 'users', {observe: 'response', params} )
       .pipe(
         map(response => {
           paginatedResult.result = response.body;
           if (response.headers.get('Pagination') != null) {
+            // console.log('getUsers - response.headers.get(Pagination)', response.headers.get('Pagination'));
             paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
           }
+          console.log('getUsers - paginatedResult', paginatedResult);
           return paginatedResult;
         })
       );
@@ -66,7 +68,7 @@ export class UserService {
   }
 
   sendLike(id: number, recipientId: number) {
-    console.log('UserService.sendLike: ', id, recipientId);
+    // console.log('UserService.sendLike: ', id, recipientId);
     return this.http.post(this.baseUrl + 'users/' + id + '/likes/' + recipientId, {});
   }
 
@@ -79,7 +81,7 @@ export class UserService {
       params = params.append('pageNumber', page);
       params = params.append('pageSize', itemsPerPage);
     }
-    // console.log('getMessages', params);
+    console.log('getMessages - params', params);
     // console.log('messageContainer', messageContainer);
     return this.http.get<Message[]>(this.baseUrl + 'users/' + id + '/messages', {observe: 'response', params})
       .pipe(
@@ -88,6 +90,8 @@ export class UserService {
           if (response.headers.get('Pagination') !== null) {
             paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
           }
+          console.log('getMessages - response', response);
+          console.log('getMessages - paginatedResult', paginatedResult);
           return paginatedResult;
         })
       );
