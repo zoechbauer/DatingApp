@@ -33,6 +33,8 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { ListResolver } from './_resolvers/list.resolver';
 import { MessagesResolver } from './_resolvers/messages.resolver';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { AdminPanelComponent } from './admin/AdminPanel/AdminPanel.component';
+import { HasRoleDirective } from './_directives/hasRole.directive';
 
 
 export function tokenGetter() {
@@ -60,6 +62,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       MemberMessagesComponent,
       PhotoEditorComponent,
       TimeAgoPipe,
+      AdminPanelComponent,
+      HasRoleDirective
    ],
    imports: [
       BrowserModule,

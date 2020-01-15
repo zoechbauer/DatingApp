@@ -25,7 +25,7 @@ export class AuthService {
         const user = response;
         if (user) {
           console.log('login user:', user);
-          localStorage.setItem('token', user.token); 
+          localStorage.setItem('token', user.token);
           localStorage.setItem('user', JSON.stringify(user.user));
           this.decodedToken = this.jwtHelper.decodeToken(user.token);
           this.currentUser = user.user;
@@ -47,5 +47,21 @@ export class AuthService {
 
   changeMemberPhoto(photoUrl: string) {
     this.photoUrl.next(photoUrl);
+  }
+
+  roleMatch(allowedRoles): boolean {
+    let isMatch = false;
+    const userRoles = this.decodedToken.role as Array<string>;
+    console.log('decodedToken', this.decodedToken);
+
+    allowedRoles.forEach(element => {
+      // note: you cannot break a forEach loop
+      console.log('allowedRoles.forEach - element:', element);
+      if (userRoles.includes(element)) {
+        isMatch = true;
+        return false;
+      }
+    });
+    return isMatch;
   }
 }
