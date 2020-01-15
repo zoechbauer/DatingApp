@@ -20,8 +20,9 @@ namespace DatingApp.API
                 try {
                     var context = services.GetRequiredService<DataContext>();
                     var userManager = services.GetRequiredService<UserManager<User>>();
+                    var roleManager = services.GetRequiredService<RoleManager<Role>>();
                     context.Database.Migrate();
-                    Seed.SeedUsers(userManager);
+                    Seed.SeedUsers(userManager, roleManager);
                 } catch(Exception ex) {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred during migration!");

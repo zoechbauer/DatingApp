@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -17,6 +18,7 @@ namespace DatingApp.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _config;
@@ -31,7 +33,6 @@ namespace DatingApp.API.Controllers
             _mapper = mapper;
             _config = config;
         }
-        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
@@ -48,7 +49,6 @@ namespace DatingApp.API.Controllers
 
             return BadRequest(result.Errors);
         }
-        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
@@ -60,7 +60,7 @@ namespace DatingApp.API.Controllers
 
                 return Ok(new
                 {
-                    token = generateJwtToken(user),
+                    token = generateJwtToken(user).Result,
                     user = appUser
                 });
             }   
@@ -68,12 +68,18 @@ namespace DatingApp.API.Controllers
             return Unauthorized();     
         }
 
-        private string generateJwtToken(User user)
+        private async Task<string> generateJwtToken(User user)
         {
-            var claims = new[] {
+            // var claims = new List<Claim> {
+            var claims = new List<Claim> {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName)
-                };
+            };
+
+            var roles = await _userManager.GetRolesAsync(user);
+            foreach (var role in roles) {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8
                 .GetBytes(_config.GetSection("AppSettings:Token").Value));
