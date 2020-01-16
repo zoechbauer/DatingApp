@@ -2,7 +2,7 @@ import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angu
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, ButtonsModule, ModalModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -38,6 +38,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { AdminService } from './_Services/admin.service';
+import { RolesModuleComponent } from './admin/roles-module/roles-module.component';
 
 
 export function tokenGetter() {
@@ -68,7 +69,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       AdminPanelComponent,
       HasRoleDirective,
       UserManagementComponent,
-      PhotoManagementComponent
+      PhotoManagementComponent,
+      RolesModuleComponent
    ],
    imports: [
       BrowserModule,
@@ -84,6 +86,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       RouterModule.forRoot(appRoutes),
       NgxGalleryModule,
       FileUploadModule,
+      ModalModule.forRoot(),
       JwtModule.forRoot({
          config: {
             // tslint:disable-next-line: object-literal-shorthand
@@ -106,6 +109,9 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig },
       MessagesResolver,
       AdminService
+   ],
+   entryComponents: [
+      RolesModuleComponent
    ],
    bootstrap: [
       AppComponent
