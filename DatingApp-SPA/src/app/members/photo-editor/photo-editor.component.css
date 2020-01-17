@@ -4,6 +4,30 @@ img.img-thumbnail {
     margin-bottom: 2px;
 }
 
+.img-wrapper {
+    position: relative;
+}
+
+img.not-approved {
+    opacity: 0.8;
+}
+
+.img-text span{
+    position: absolute;
+    bottom: 50%;
+    left: 25%;
+    font-size: small;
+    /* color: blue !important; */
+}
+
+.img-text span.mobile{
+    position: absolute;
+    bottom: 50%;
+    left: 10%;
+    font-size: small;
+    /* color: green !important; */
+}
+
 .nv-file-over {
     border: dotted 3px red;
 }

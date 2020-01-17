@@ -1,11 +1,21 @@
-<div class="row">
-  <div *ngFor="let photo of photos" class="col-sm-2">
-    <img src="{{photo.url}}" class="img-thumbnail p-1" alt="">
+<div class="row" (window:resize)="onResize($event)">
+  <div *ngFor="let photo of photos" class="col-sm-2 img-wrapper">
+    <img src="{{photo.url}}" 
+        class="img-thumbnail p-1" 
+        [ngClass]="{'not-approved' : !photo.isApproved}"
+        alt=""
+    >
+    <div class="img-text text-center" *ngIf="!photo.isApproved">
+        <span class="text-danger" [ngClass]="{'mobile' : isMobileDevice}">
+            awaiting<br>approval
+        </span>
+    </div>
     <div class="text-center">
       <button type="button" class="btn btn-sm mr-1" (click)="setMainPhoto(photo)" 
-      [disabled]="photo.isMain" [ngClass]="photo.isMain ? 'btn-success active' : 'btn-secondary'">Main</button>
+        [disabled]="photo.isMain || !photo.isApproved" 
+        [ngClass]="photo.isMain ? 'btn-success active' : 'btn-secondary'">Main</button>
       <button type="button" class="btn btn-sm btn-danger" (click)="deletePhoto(photo.id)"
-      [disabled]="photo.isMain"><i class="fa fa-trash-o"></i></button>
+        [disabled]="photo.isMain"><i class="fa fa-trash-o"></i></button>
     </div>
   </div>
 </div>
@@ -54,7 +64,7 @@
         <div>
             <div>
                 Queue progress:
-                <div class="progress" style="">
+                <div class="progress">
                     <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
                 </div>
             </div>

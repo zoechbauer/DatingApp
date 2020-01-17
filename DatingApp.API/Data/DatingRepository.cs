@@ -26,9 +26,25 @@ namespace DatingApp.API.Data
             _context.Remove(entity);
         }
 
-        public async Task<User> GetUser(int id)
+        public async Task<User> GetUser(int id, bool isCurrentUser)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            // in version before photo management Include(Photos) was not necessary because of lazy loading
+            //   e.g. var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            //        return user
+
+            // version for .NET Core 3.1
+            IQueryable<User> query;
+
+            if (isCurrentUser) {
+                query = _context.Users.Include(p => p.Photos).IgnoreQueryFilters().AsQueryable();
+            } else {
+                // note: if you don't use IgnoreQueryFilters you can omit the Include clause
+                //       but you must use .Include() if you apply IgnoreQueryFilters as seen above
+                // query = _context.Users.Include(p => p.Photos).AsQueryable();
+                query = _context.Users.AsQueryable();
+            }
+
+            var user = await query.FirstOrDefaultAsync(u => u.Id == id);
             return user;
         }
 
@@ -89,7 +105,9 @@ namespace DatingApp.API.Data
             return await _context.SaveChangesAsync() > 0;
         }
         public async Task<Photo> GetPhoto(int id) {
-            var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
+            var photo = await _context.Photos
+                    .IgnoreQueryFilters()
+                    .FirstOrDefaultAsync(p => p.Id == id);
             return photo;
         }
 

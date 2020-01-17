@@ -18,12 +18,15 @@ export class PhotoEditorComponent implements OnInit {
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   currentMain: Photo;
+  isSmallMobileDevice: MediaQueryList = window.matchMedia('(max-width: 999px)');   // mobile: 599px
+  isMobileDevice = false;
 
   constructor(private authService: AuthService, private userService: UserService,
               private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.initializeUploader();
+    this.onResize(null);
   }
 
   fileOverBase(e: any): void {
@@ -51,7 +54,8 @@ export class PhotoEditorComponent implements OnInit {
           url: resp.url,
           description: resp.description,
           dateAdded: resp.dateAdded,
-          isMain: resp.isMain
+          isMain: resp.isMain,
+          isApproved: resp.isApproved
         };
         this.photos.push(photo);
         if (photo.isMain) {
@@ -94,6 +98,16 @@ export class PhotoEditorComponent implements OnInit {
         );
     });
   }
+
+  onResize(event: any): void {
+    // console.log('isSmallMobileDevice', this.isSmallMobileDevice);
+    if (this.isSmallMobileDevice.matches) {
+      this.isMobileDevice = true;
+    } else {
+      this.isMobileDevice = false;
+    }
+  }
+
 
 }
 
