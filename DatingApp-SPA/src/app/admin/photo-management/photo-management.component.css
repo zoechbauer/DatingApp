@@ -1,0 +1,15 @@
+img.img-thumbnail {
+    height: 150;
+    min-width: 150 !important;
+    margin-bottom: 2px;
+}
+
+.button-line {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.button-item {
+    flex: 1 1 0px;
+    text-align: center;
+}
