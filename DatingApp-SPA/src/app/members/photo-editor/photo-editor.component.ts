@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/_Services/Auth.service';
 import { UserService } from 'src/app/_Services/User.service';
 import { AlertifyService } from 'src/app/_Services/alertify.service';
+import { MobileService } from 'src/app/_Services/mobile.service';
 
 
 @Component({
@@ -18,11 +19,10 @@ export class PhotoEditorComponent implements OnInit {
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   currentMain: Photo;
-  isSmallMobileDevice: MediaQueryList = window.matchMedia('(max-width: 999px)');   // mobile: 599px
   isMobileDevice = false;
 
   constructor(private authService: AuthService, private userService: UserService,
-              private alertify: AlertifyService) { }
+              private alertify: AlertifyService, private mobileService: MobileService) { }
 
   ngOnInit() {
     this.initializeUploader();
@@ -100,14 +100,7 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   onResize(event: any): void {
-    // console.log('isSmallMobileDevice', this.isSmallMobileDevice);
-    if (this.isSmallMobileDevice.matches) {
-      this.isMobileDevice = true;
-    } else {
-      this.isMobileDevice = false;
-    }
+    this.isMobileDevice = this.mobileService.isMobileDevice();
   }
-
-
 }
 

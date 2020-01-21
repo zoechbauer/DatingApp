@@ -37,7 +37,8 @@ namespace DatingApp.API.Data
 
                 // create admin user
                 var adminUser = new User {
-                    UserName = "Admin"
+                    UserName = "Admin",
+                    KnownAs = "Admin"
                 };
                 var result = userManager.CreateAsync(adminUser, "password").Result;
                 if (result.Succeeded) {

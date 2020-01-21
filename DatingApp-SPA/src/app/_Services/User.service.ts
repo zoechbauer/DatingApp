@@ -83,6 +83,8 @@ export class UserService {
     }
     console.log('getMessages - params', params);
     // console.log('messageContainer', messageContainer);
+
+    // with oberserve: 'response' we get all data including the response headers and not only the json data
     return this.http.get<Message[]>(this.baseUrl + 'users/' + id + '/messages', {observe: 'response', params})
       .pipe(
         map(response => {

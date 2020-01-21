@@ -32,10 +32,9 @@
                 <span *ngIf="!message.isRead" class="text-danger">(unread)</span>
                 <span *ngIf="message.isRead"  class="text-success"><br>(Read {{message.dateRead | timeAgo}}</span>
               </small>
-              <strong class="primary-font float-right">{{message.senderKnownAs}}</strong>
-              
+              <strong class="primary-font float-right">{{message.senderKnownAs}}</strong>      
             </div>
-          <p>{{message.content}}</p>
+            <p>{{message.content}}</p>
           </div>
         </div>      
       </li>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_Services/Auth.service';
 import { AlertifyService } from '../_Services/alertify.service';
 import { Router } from '@angular/router';
+import { MobileService } from '../_Services/mobile.service';
 
 @Component({
   selector: 'app-nav',
@@ -11,12 +12,14 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
   model: any = {};
   photoUrl: string;
+  isMobileDevice: boolean;
 
   constructor(public authService: AuthService, private alertify: AlertifyService,
-              private router: Router) {}
+              private router: Router, private mobileService: MobileService) {}
 
   ngOnInit() {
     this.authService.currentPhotoUrl.subscribe(photo => this.photoUrl = photo);
+    this.onResize(null);
   }
 
   login() {
@@ -44,4 +47,7 @@ export class NavComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  onResize(event) {
+    this.isMobileDevice = this.mobileService.isMobileDevice();
+  }
 }

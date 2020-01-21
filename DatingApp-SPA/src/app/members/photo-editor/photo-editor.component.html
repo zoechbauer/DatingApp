@@ -1,5 +1,5 @@
 <div class="row" (window:resize)="onResize($event)">
-  <div *ngFor="let photo of photos" class="col-sm-2 img-wrapper">
+  <div *ngFor="let photo of photos" class="col-sm-3 img-wrapper">
     <img src="{{photo.url}}" 
         class="img-thumbnail p-1" 
         [ngClass]="{'not-approved' : !photo.isApproved}"
@@ -10,7 +10,7 @@
             awaiting<br>approval
         </span>
     </div>
-    <div class="text-center">
+    <div class="text-center d-flex">
       <button type="button" class="btn btn-sm mr-1" (click)="setMainPhoto(photo)" 
         [disabled]="photo.isMain || !photo.isApproved" 
         [ngClass]="photo.isMain ? 'btn-success active' : 'btn-secondary'">Main</button>

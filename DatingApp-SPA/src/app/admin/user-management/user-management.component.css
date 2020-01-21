@@ -1,0 +1,17 @@
+.table-row {
+    display: flex;
+    flex-wrap: wrap;  
+} 
+.col-len-2 {
+    flex: 30%;
+}  
+.col-len-1 {
+    flex: 1%;
+}  
+.col-len-3 {
+    flex: 40%;
+} 
+
+.header-col-align-not-mobile {
+    margin-left: -97px;
+}

@@ -39,6 +39,7 @@ import { UserManagementComponent } from './admin/user-management/user-management
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { AdminService } from './_Services/admin.service';
 import { RolesModuleComponent } from './admin/roles-module/roles-module.component';
+import { MobileService } from './_Services/mobile.service';
 
 
 export function tokenGetter() {
@@ -108,7 +109,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       MemberEditResolver,
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig },
       MessagesResolver,
-      AdminService
+      AdminService,
+      MobileService
    ],
    entryComponents: [
       RolesModuleComponent

@@ -5,6 +5,7 @@ import { AuthService } from '../_Services/Auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from '../_Services/alertify.service';
 import { UserService } from '../_Services/User.service';
+import { MobileService } from '../_Services/mobile.service';
 
 @Component({
   selector: 'app-messages',
@@ -17,19 +18,19 @@ export class MessagesComponent implements OnInit {
   messageContainer = 'Unread';
   deleteBtnText = 'Delete';
   isMobileDevice = true;
-  isSmallMobileDevice: MediaQueryList = window.matchMedia('(max-width: 999px)');   // mobile: 599px
   headerFromToText = 'From / To';
   headerSentReceivedText = 'Sent / Received';
 
   constructor(private authService: AuthService, private userService: UserService,
-              private route: ActivatedRoute, private alertify: AlertifyService) { }
+              private route: ActivatedRoute, private alertify: AlertifyService,
+              private mobileService: MobileService) { }
 
   ngOnInit() {
     this.route.data.subscribe( data => {
       this.messages = data['messages'].result;
       this.pagination = data['messages'].pagination;
     });
-    this.onResize(null);
+    this.setButtonText();
   }
 
   loadMessages() {
@@ -63,16 +64,11 @@ export class MessagesComponent implements OnInit {
   }
 
   onResize(event: any): void {
-    // console.log('isSmallMobileDevice', this.isSmallMobileDevice);
-    if (this.isSmallMobileDevice.matches) {
-      this.isMobileDevice = true;
-    } else {
-      this.isMobileDevice = false;
-    }
     this.setButtonText();
   }
 
   setButtonText(): void {
+    this.isMobileDevice = this.mobileService.isMobileDevice();
     // message load buttons
     if (this.messageContainer.toLowerCase() === 'outbox') {
       this.headerSentReceivedText = 'Sent';

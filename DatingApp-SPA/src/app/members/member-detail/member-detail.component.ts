@@ -23,6 +23,9 @@ export class MemberDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe( data => {
+      // we can access the resolved data of member-edit.resolver
+      // using the data property of Activated Route, the key is defined in routes.ts
+      // see https://alligator.io/angular/route-resolvers/
       this.user = data['user'];
       }
     );
